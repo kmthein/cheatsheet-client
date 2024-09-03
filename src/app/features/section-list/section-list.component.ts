@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-section-list',
@@ -32,4 +32,30 @@ export class SectionListComponent {
       name: 'Programming',
     },
   ];
+
+  public divWidth: string = "";
+
+  // Define breakpoints
+  private readonly lgBreakpoint = 1024; // lg breakpoint in pixels
+  private readonly xlBreakpoint = 1536; // 2xl breakpoint in pixels
+
+  constructor() {
+    this.updateWidth();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.updateWidth();
+  }
+
+  private updateWidth() {
+    const width = window.innerWidth;
+    if (width >= this.xlBreakpoint) {
+      this.divWidth = 'calc((100% / 6) - 20px)'; // Width for 2xl
+    } else if (width >= this.lgBreakpoint) {
+      this.divWidth = 'calc((100% / 3) - 20px)'; // Width for lg
+    } else {
+      this.divWidth = 'calc((100%) - 20px)'; // Default width for smaller screens
+    }
+  }
 }

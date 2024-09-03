@@ -13,3 +13,31 @@ body {
   background-color: #f9f9f9;
   color: #333333;
 }
+nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #3490dc;
+  transition: width 0.2s ease, left 0.2s ease;
+}
+.active-link::before {
+  width: 100%;
+  left: 0;
+}
+.section-lg {
+  width: calc((100% / 3) - 20px);
+}
+.section-xl {
+  width: calc((100% / 6) - 20px);
+}

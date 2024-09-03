@@ -21,6 +21,7 @@ import {
 } from '@ng-icons/heroicons/outline';
 import { SectionListComponent } from './features/section-list/section-list.component';
 import { SectionComponent } from './features/section-list/section/section.component';
+import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SectionComponent } from './features/section-list/section/section.compon
     CheatsheetComponent,
     SectionListComponent,
     SectionComponent,
+    InnerWrapComponent,
   ],
   imports: [
     BrowserModule,

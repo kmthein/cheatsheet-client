@@ -6,8 +6,8 @@
   <div class="flex gap-[20px] flex-wrap mt-8">
     <div
       *ngFor="let section of sections"
-      style="width: calc((100% / 6) - 20px)"
-      class="bg-[#e4e4e4] rounded-xl flex items-center justify-center py-10 border-[#c7c7c7] border"
+      class="bg-[#e4e4e4] lg:section-lg 2xl:section-xl rounded-xl flex items-center justify-center py-10 border-[#c7c7c7] border"
+      [ngStyle]="{ width: divWidth }"
     >
       <div class="inline-flex flex-col items-center">
         <ng-icon name="heroCodeBracket" class="mb-2 text-xl"></ng-icon>
