@@ -1,0 +1,31 @@
+<div class="w-[70%] mx-auto">
+  <div class="flex justify-between py-5">
+    <a>
+      <h1 class="text-2xl">Cheato<span class="text-[#41a0ff]">graphy</span></h1>
+    </a>
+    <div class="flex items-center gap-1">
+      <ng-icon name="heroMagnifyingGlass" class="text-xl"></ng-icon>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="value"
+        placeholder="Search for cheatsheet"
+        class="outline-none bg-transparent"
+      />
+    </div>
+    <nav>
+      <ul class="flex gap-6 items-center">
+        <li><a href="">Home</a></li>
+        <li>
+          <a routerLink="cheatsheets" routerLinkActive="active">Cheatsheet</a>
+        </li>
+        <li><a href="">Create</a></li>
+        <li><a href="">Community</a></li>
+        <li><a href="">Help</a></li>
+        <li class="mt-2">
+          <a><ng-icon name="heroUserCircle" class="text-xl"></ng-icon></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
