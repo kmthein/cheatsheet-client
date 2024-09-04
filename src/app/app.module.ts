@@ -18,10 +18,27 @@ import {
   heroMagnifyingGlass,
   heroUserCircle,
   heroCodeBracket,
+  heroComputerDesktop,
+  heroHome,
+  heroShoppingBag,
+  heroBookOpen,
 } from '@ng-icons/heroicons/outline';
+import {
+  ionCalendarOutline,
+  ionGameController,
+  ionGameControllerOutline,
+  ionPricetagSharp,
+} from '@ng-icons/ionicons';
 import { SectionListComponent } from './features/section-list/section-list.component';
 import { SectionComponent } from './features/section-list/section/section.component';
 import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
+import { LatestCheatsheetComponent } from './features/latest-cheatsheet/latest-cheatsheet.component';
+import { PopularCheatsheetComponent } from './features/popular-cheatsheet/popular-cheatsheet.component';
+import { provideHttpClient } from '@angular/common/http';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -35,6 +52,8 @@ import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
     SectionListComponent,
     SectionComponent,
     InnerWrapComponent,
+    LatestCheatsheetComponent,
+    PopularCheatsheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,13 +62,24 @@ import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
     FormsModule,
     ToggleButtonModule,
     InputNumberModule,
+    DropdownModule,
+    BrowserAnimationsModule,
+    MenuModule,
+    MenubarModule,
     NgIconsModule.withIcons({
       heroMagnifyingGlass,
       heroUserCircle,
       heroCodeBracket,
+      heroComputerDesktop,
+      heroHome,
+      heroShoppingBag,
+      heroBookOpen,
+      ionGameControllerOutline,
+      ionCalendarOutline,
+      ionPricetagSharp,
     }),
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,9 @@
 <app-inner-wrap>
   <div class="flex justify-between py-5 items-center">
     <a>
-      <h1 class="text-2xl font-bold">Cheato<span class="text-[#41a0ff]">graphy</span></h1>
+      <h1 class="text-2xl font-bold">
+        Cheato<span class="text-[#41a0ff]">graphy</span>
+      </h1>
     </a>
     <div class="flex items-center gap-1">
       <ng-icon name="heroMagnifyingGlass" class="text-xl"></ng-icon>
@@ -15,15 +17,31 @@
     </div>
     <nav>
       <ul class="flex gap-6 items-center">
-        <li><a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
         <li>
-          <a routerLink="cheatsheets" routerLinkActive="active-link">Cheatsheet</a>
+          <a
+            routerLink=""
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a routerLink="cheatsheets" routerLinkActive="active-link"
+            >Cheatsheet</a
+          >
         </li>
         <li><a href="">Create</a></li>
         <li><a href="">Community</a></li>
         <li><a href="">Help</a></li>
-        <li class="mt-2">
-          <a><ng-icon name="heroUserCircle" class="text-xl"></ng-icon></a>
+        <li>
+          <p-dropdown
+            [options]="menu"
+            [(ngModel)]="selectedMenu"
+            optionLabel="name"
+            placeholder="My Profile"
+            class="bg-transparent"
+            (onChange)="onMenuChange($event)"
+          ></p-dropdown>
         </li>
       </ul>
     </nav>
