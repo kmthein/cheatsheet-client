@@ -38,3 +38,6 @@ nav a::before {
 .section-xl {
   width: calc((100% / 6) - 20px);
 }
+small {
+  color: red;
+}

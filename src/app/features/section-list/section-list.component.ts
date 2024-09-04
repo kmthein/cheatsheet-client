@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { SectionService } from '../../services/section.service';
+import { SectionService } from '../../services/section/section.service';
 import { Section } from '../../models/section';
 
 @Component({

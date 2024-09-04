@@ -19,6 +19,7 @@ import {
   heroHome,
   heroShoppingBag,
   heroBookOpen,
+  heroPlus,
 } from '@ng-icons/heroicons/outline';
 import {
   ionCalendarOutline,
@@ -35,6 +36,8 @@ import { PopularCheatsheetComponent } from './features/popular-cheatsheet/popula
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet.component';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
+import { LoginComponent } from './features/login/login.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet
     LatestCheatsheetComponent,
     PopularCheatsheetComponent,
     AddCheatsheetComponent,
+    BreadcrumbComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,8 @@ import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet
       ionGameControllerOutline,
       ionCalendarOutline,
       ionPricetagSharp,
-      ionChevronDownSharp
+      ionChevronDownSharp,
+      heroPlus,
     }),
   ],
   providers: [provideHttpClient()],

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class NavComponent {
   checked: any;
   value: any;
+  isLogin = false;
 
   constructor(private router: Router) {}
 
