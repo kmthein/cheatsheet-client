@@ -1,10 +1,12 @@
 module.exports = {
-  important: true,
   content: [
-    "./src/**/*.{html,ts}", // Adjust this path based on your project structure
+    "./src/**/*.{html,ts}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 };

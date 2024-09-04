@@ -9,9 +9,6 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { SiderComponent } from './shared/components/sider/sider.component';
 import { HomeComponent } from './features/home/home.component';
 import { CheatsheetComponent } from './features/cheatsheet/cheatsheet.component';
-import { ButtonModule } from 'primeng/button';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { NgIconsModule } from '@ng-icons/core';
 import {
@@ -25,6 +22,7 @@ import {
 } from '@ng-icons/heroicons/outline';
 import {
   ionCalendarOutline,
+  ionChevronDownSharp,
   ionGameController,
   ionGameControllerOutline,
   ionPricetagSharp,
@@ -35,10 +33,8 @@ import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
 import { LatestCheatsheetComponent } from './features/latest-cheatsheet/latest-cheatsheet.component';
 import { PopularCheatsheetComponent } from './features/popular-cheatsheet/popular-cheatsheet.component';
 import { provideHttpClient } from '@angular/common/http';
-import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MenuModule } from 'primeng/menu';
-import { MenubarModule } from 'primeng/menubar';
+import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet.component';
 
 @NgModule({
   declarations: [
@@ -54,18 +50,13 @@ import { MenubarModule } from 'primeng/menubar';
     InnerWrapComponent,
     LatestCheatsheetComponent,
     PopularCheatsheetComponent,
+    AddCheatsheetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
     FormsModule,
-    ToggleButtonModule,
-    InputNumberModule,
-    DropdownModule,
     BrowserAnimationsModule,
-    MenuModule,
-    MenubarModule,
     NgIconsModule.withIcons({
       heroMagnifyingGlass,
       heroUserCircle,
@@ -77,6 +68,7 @@ import { MenubarModule } from 'primeng/menubar';
       ionGameControllerOutline,
       ionCalendarOutline,
       ionPricetagSharp,
+      ionChevronDownSharp
     }),
   ],
   providers: [provideHttpClient()],
