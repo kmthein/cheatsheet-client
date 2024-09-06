@@ -5,6 +5,9 @@ import { HomeComponent } from './features/home/home.component';
 import { CheatsheetComponent } from './features/cheatsheet/cheatsheet.component';
 import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet.component';
 import { LoginComponent } from './features/login/login.component';
+import { LoginGuard } from './core/guard/login.guard';
+import { AuthGuard } from './core/guard/auth.guard';
+import { RegisterComponent } from './features/register/register/register.component';
 
 const routes: Routes = [
   {
@@ -13,8 +16,17 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'cheatsheets', component: CheatsheetComponent },
-      { path: 'create', component: AddCheatsheetComponent },
-      { path: 'login', component: LoginComponent },
+      {
+        path: 'create',
+        component: AddCheatsheetComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        canActivate: [LoginGuard],
+      },
     ],
   },
 ];

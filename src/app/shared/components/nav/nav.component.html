@@ -30,7 +30,7 @@
             >Cheat Sheets</a
           >
         </li>
-        <li>
+        <li *ngIf="isLogin">
           <a routerLink="create" routerLinkActive="active-link">Create</a>
         </li>
         <li><a href="">Community</a></li>
@@ -41,11 +41,11 @@
         <li *ngIf="isLogin">
           <button
             id="dropdownDefaultButton"
+            (click)="toggleDropdown()"
             class="py-2.5 text-center inline-flex items-center"
             type="button"
-            (click)="isDropdownVisible = !isDropdownVisible"
           >
-            {{user?.name || "My Account"}}
+            {{ user?.name || "My Account" }}
             <svg
               class="w-2.5 h-2.5 ms-3"
               aria-hidden="true"
@@ -62,19 +62,16 @@
               />
             </svg>
           </button>
-        
+
           <!-- Dropdown menu -->
           <div
-            [ngClass]="{'hidden': !isDropdownVisible, 'block': isDropdownVisible}"
+            *ngIf="isDropdownVisible"
+            id="dropdown"
             class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute"
           >
-            <ul
-              class="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdownDefaultButton"
-            >
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
               <li>
                 <a
-                  (click)="closeDropdown()"
                   routerLink=""
                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >Profile</a
@@ -90,7 +87,6 @@
             </ul>
           </div>
         </li>
-        
       </ul>
     </nav>
   </div>

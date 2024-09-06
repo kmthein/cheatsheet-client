@@ -39,6 +39,8 @@ import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { LoginComponent } from './features/login/login.component';
 import { authInterceptor } from './core/auth.interceptor';
+import { ToastComponent } from './shared/components/toast/toast.component';
+import { RegisterComponent } from './features/register/register/register.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { authInterceptor } from './core/auth.interceptor';
     AddCheatsheetComponent,
     BreadcrumbComponent,
     LoginComponent,
+    ToastComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
