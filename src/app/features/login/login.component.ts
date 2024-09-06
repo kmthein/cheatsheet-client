@@ -17,9 +17,10 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     const { email, password } = form.value;
+    console.log(form.value);
+    
     this.authService.login(email, password).subscribe({
       next: (response) => {
-        console.log(response);
         this.userLogged.emit(response.userDetails);
       },
       error: (error) => {

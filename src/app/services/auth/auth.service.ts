@@ -21,6 +21,7 @@ export class AuthService {
         const { token, userDetails } = response;
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(userDetails));
           this.userSource.next(response.userDetails);
         }
       })
@@ -29,6 +30,10 @@ export class AuthService {
 
   getUser() {
     return this.userSource.value;
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem("token") ? true : false;
   }
 
   logout(): void {

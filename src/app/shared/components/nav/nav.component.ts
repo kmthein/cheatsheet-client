@@ -19,6 +19,7 @@ export class NavComponent implements OnInit {
   value: any;
   user: User | undefined | null;
   isLogin = false;
+  isDropdownVisible = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -26,9 +27,13 @@ export class NavComponent implements OnInit {
     // Retrieve the user from the AuthService when the component is rendered
     this.authService.currentUser$.subscribe((user) => {
       this.user = user;
-      this.isLogin = !!this.user; // Update isLogin based on user presence
+      this.isLogin = user ? true : false; // Update isLogin based on user presence
     });
     console.log(this.user);
+  }
+
+  closeDropdown() {
+    this.isDropdownVisible = false;
   }
 
   logout() {
