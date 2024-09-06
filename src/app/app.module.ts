@@ -33,11 +33,12 @@ import { SectionComponent } from './features/section-list/section/section.compon
 import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
 import { LatestCheatsheetComponent } from './features/latest-cheatsheet/latest-cheatsheet.component';
 import { PopularCheatsheetComponent } from './features/popular-cheatsheet/popular-cheatsheet.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet.component';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { LoginComponent } from './features/login/login.component';
+import { authInterceptor } from './core/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { LoginComponent } from './features/login/login.component';
       heroPlus,
     }),
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

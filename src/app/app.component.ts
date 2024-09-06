@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import { AuthService } from './services/auth/auth.service';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,17 @@ import { initFlowbite } from 'flowbite';
 export class AppComponent {
   title = 'cheatsheet-client';
 
+  constructor(private authService: AuthService) {}
+
+  @Input() user: User | undefined;
+
   ngOnInit(): void {
     initFlowbite();
+    this.authService.currentUser$.subscribe((user) => {
+      console.log('Current User:', user);
+      if (user) {
+        // Do something with the user object
+      }
+    });
   }
 }
