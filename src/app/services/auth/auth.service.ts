@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { User } from '../../models/user';
 import { ToastService } from '../toast/toast.service';
+import { RegisterUser } from '../../features/register/register/register.component';
 
 @Injectable({
   providedIn: 'root',
@@ -45,9 +46,14 @@ export class AuthService {
     );
   }
 
-  // register(): Observable<any> {
-  //   return null;
-  // }
+  register(user: RegisterUser): Observable<any> {
+    return this.http.post<any>(`${this.url}/register`, user).pipe(
+      tap((response) => {
+        console.log(response);
+      })
+    );
+    // return null;
+  }
 
   getUser() {
     return this.userSource.value;

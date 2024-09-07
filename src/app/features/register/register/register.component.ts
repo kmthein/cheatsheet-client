@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
 
-interface RegisterUser {
+export interface RegisterUser {
   name: string;
   password: string;
   cpassword: string;
@@ -17,8 +18,11 @@ interface RegisterUser {
 })
 export class RegisterComponent {
   user = {} as RegisterUser;
+
+  constructor(private authService: AuthService) {}
+
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    this.authService.register(form.value);
   }
 
   passwordMatch(): boolean {
