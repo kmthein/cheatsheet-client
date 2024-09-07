@@ -1,0 +1,56 @@
+<form #blockForm="ngForm" (ngSubmit)="submitBlock()">
+<div id="{{modalSize}}" data-modal-backdrop="static" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full {{ columnNum == 1 ? 'max-w-xl' : columnNum == 2 ? 'max-w-2xl' : 'max-w-5xl'}} max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-medium text-gray-900 dark:text-white">Add New Block</h3>
+          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="medium-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-4 md:p-5 space-y-4">
+            <!-- Column Selection -->
+            <div class="mb-6 w-[80%]">
+              <label for="section" class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]">Column</label>
+              <select id="layout" name="layout" [(ngModel)]="columnNum" (ngModelChange)="updateColumns()" class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm w-[70%] p-2">
+                <option selected disabled>Please select type</option>
+                <option value="1">1 Column</option>
+                <option value="2">2 Columns</option>
+                <option value="3">3 Columns</option>
+                <option value="4">4 Columns</option>
+              </select>
+            </div>
+            <!-- Title Input -->
+            <div class="mb-6 w-[80%]">
+              <label for="title" class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]">Title</label>
+              <input type="text" name="title" [(ngModel)]="title" class="w-[70%] py-1 px-2 border border-[#e6e6e6]" />
+            </div>
+            <!-- Dynamic Rows and Columns -->
+            <div class="flex gap-3 w-full items-end" *ngFor="let row of rows; let rowIndex = index;">
+              <div *ngFor="let column of columns; let colIndex = index;">
+                <label for="column{{colIndex}}" class="text-sm text-gray-500 dark:text-gray-400 block min-w-[25%]" *ngIf="rowIndex === 0">Column {{ colIndex + 1 }}</label>
+                <div class="pb-2">
+                  <input type="text" [(ngModel)]="aryData[rowIndex][colIndex]" class="py-1 px-2 border border-[#e6e6e6]" name="column{{rowIndex}}-{{colIndex}}" />
+                </div>
+              </div>
+              <!-- Add Row Button -->
+              <ng-icon name="ionAddCircle" class="mb-4 text-xl cursor-pointer" (click)="addNewRow()" *ngIf="rowIndex === rows.length - 1"></ng-icon>
+            </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button type="submit" data-modal-hide="medium-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5">I accept</button>
+          <button data-modal-hide="medium-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200">Decline</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+  

@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './add-cheatsheet.component.html',
   styleUrl: './add-cheatsheet.component.css',
 })
-export class AddCheatsheetComponent {}
+export class AddCheatsheetComponent {
+  modalSize: 'medium-modal' | 'large-modal' | 'extralarge-modal' = 'medium-modal';
+}

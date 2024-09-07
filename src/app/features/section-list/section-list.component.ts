@@ -22,7 +22,6 @@ export class SectionListComponent {
     this.sectionService.getAllSections().subscribe(
       (data) => {
         this.sections = data;
-        console.log(data);
       },
       (error) => {
         console.log(error);

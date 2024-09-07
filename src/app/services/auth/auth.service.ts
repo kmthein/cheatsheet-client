@@ -47,9 +47,17 @@ export class AuthService {
   }
 
   register(user: RegisterUser): Observable<any> {
+    console.log(user);
     return this.http.post<any>(`${this.url}/register`, user).pipe(
       tap((response) => {
         console.log(response);
+        this.toastService.setMessage('User register successful', 'toast-success');
+      }),
+      catchError((err) => {
+        const { error }  = err;
+        console.log(error);
+        this.toastService.setMessage(error.message, 'toast-danger');
+        return throwError(error);
       })
     );
     // return null;

@@ -22,6 +22,7 @@ import {
   heroPlus,
 } from '@ng-icons/heroicons/outline';
 import {
+  ionAddCircle,
   ionCalendarOutline,
   ionChevronDownSharp,
   ionGameController,
@@ -41,6 +42,7 @@ import { LoginComponent } from './features/login/login.component';
 import { authInterceptor } from './core/auth.interceptor';
 import { ToastComponent } from './shared/components/toast/toast.component';
 import { RegisterComponent } from './features/register/register/register.component';
+import { AddBlockModalComponent } from './shared/components/add-block-modal/add-block-modal.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { RegisterComponent } from './features/register/register/register.compone
     LoginComponent,
     ToastComponent,
     RegisterComponent,
+    AddBlockModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ import { RegisterComponent } from './features/register/register/register.compone
       ionPricetagSharp,
       ionChevronDownSharp,
       heroPlus,
+      ionAddCircle
     }),
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],

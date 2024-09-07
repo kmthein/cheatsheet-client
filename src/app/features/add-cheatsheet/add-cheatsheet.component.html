@@ -130,7 +130,19 @@
             class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
             >Block</label
           >
-          <div class="flex items-center gap-1 cursor-pointer">
+          <div *ngIf="modalSize === 'medium-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="medium-modal" data-modal-toggle="medium-modal" type="button">
+            <ng-icon name="heroPlus" />
+            <span class="text-sm text-gray-500 dark:text-gray-400"
+              >Add New Block Here</span
+            >
+          </div>
+          <div *ngIf="modalSize === 'large-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="large-modal" data-modal-toggle="large-modal" type="button">
+            <ng-icon name="heroPlus" />
+            <span class="text-sm text-gray-500 dark:text-gray-400"
+              >Add New Block Here</span
+            >
+          </div>
+          <div *ngIf="modalSize === 'extralarge-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal" type="button">
             <ng-icon name="heroPlus" />
             <span class="text-sm text-gray-500 dark:text-gray-400"
               >Add New Block Here</span
@@ -149,3 +161,4 @@
     </form>
   </div>
 </div>
+<app-add-block-modal [modalSize]="modalSize"></app-add-block-modal>
