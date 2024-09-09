@@ -8,4 +8,5 @@ export class Cheatsheet {
   style: string = '';
   language: string = '';
   sectionId!: number;
+  tag: string = '';
 }

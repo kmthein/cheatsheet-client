@@ -12,11 +12,15 @@ export class BlockService {
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
   addNewBlock(blocks: any, id: number): Observable<any> {
+    const data = {
+      id,
+      blocks
+    }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     return this.http
-      .put<any>(`${this.url}/cheatsheets/${id}`, blocks, { headers })
+      .post<any>(`${this.url}/blocks`, data, { headers })
       .pipe(
         tap((response) => {
           console.log(response);

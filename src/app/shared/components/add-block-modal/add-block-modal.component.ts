@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BlockService } from '../../../services/block/block.service';
 
 @Component({
   selector: 'app-add-block-modal',
@@ -9,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AddBlockModalComponent {
   @Input() modalSize!: string;
   title: string = '';
+  cheatsheetId!: number;
 
   columnNum: number = 1;
   columns: number[] = [0];
@@ -16,11 +18,12 @@ export class AddBlockModalComponent {
   rowNum: number = 1;
   rows: number[] = [0];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private blockService: BlockService) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
+    this.cheatsheetId = +id!;
   }
 
   aryData: string[][] = [['']]; // Initialize with one empty row and column
@@ -38,7 +41,6 @@ export class AddBlockModalComponent {
         row.pop(); // Remove extra columns
       }
     });
-    console.log(this.columnNum);
   }
 
   // Add a new row to aryData
@@ -52,9 +54,16 @@ export class AddBlockModalComponent {
   submitBlock() {
     const blocks = [];
     const title = this.title;
-    console.log(title);
-    console.log(this.aryData); // Output the 2D array with row-by-row data
     blocks.push({ title: title, content: this.aryData });
     console.log(blocks);
+    this.blockService.addNewBlock(blocks, this.cheatsheetId).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.error(error);
+        
+      }
+    });
   }
 }

@@ -115,12 +115,12 @@
           >
           <select
             id="layout"
-            [(ngModel)]="cheatsheet.sectionId"
+            (ngModel)="cheatsheet.sectionId"
             (change)="onSectionChange($event)"
             class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option selected disabled>Please select a section</option>
-            <option *ngFor="let section of sections" [value]="section.id">
+            <option disabled>Please select a section</option>
+            <option [selected]="section.id === cheatsheet.sectionId" *ngFor="let section of sections; trackBy: trackBySectionId" [value]="section.id">
               {{ section.name }}
             </option>
           </select>
@@ -134,6 +134,7 @@
           <input
             type="text"
             name="tag"
+            [(ngModel)]="cheatsheet.tag"
             class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
           />
         </div>
