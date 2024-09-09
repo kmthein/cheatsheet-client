@@ -36,6 +36,20 @@ export class CheatsheetService {
       );
   }
 
+  updateCheatsheet(data: any, id: number): Observable<any> {
+    return this.http.put<any>(`${this.url}/cheatsheets/${id}`, data).pipe(
+      tap((response) => {
+        console.log(response);
+        
+      }),
+      catchError((err) => {
+        const { error } = err;
+        this.toastService.setMessage(error.message, 'toast-danger');
+        return throwError(error);
+      })
+    )
+  }
+
   getCheatsheetById(id: number): Observable<any> {
     return this.http.get<any>(`${this.url}/cheatsheets/${id}`);
   }

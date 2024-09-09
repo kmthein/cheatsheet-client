@@ -16,7 +16,7 @@ export class EditCheatsheetComponent {
   modalSize: 'medium-modal' | 'large-modal' | 'extralarge-modal' =
     'medium-modal';
 
-  userId!: string;
+  cheatsheetId!: string;
 
   cheatsheet = {} as Cheatsheet;
   sections: Section[] = [];
@@ -29,13 +29,36 @@ export class EditCheatsheetComponent {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('id')!;
+    this.cheatsheetId = this.route.snapshot.paramMap.get('id')!;
     this.loadData();
+    
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    console.log(this.cheatsheet);
+    let tags;
+    if(form.value.tag) {
+      tags = form.value.tag.replaceAll(" ","").split(",");
+    }
+    console.log(tags);
+    const { user } = this.cheatsheet;
+    const data = {
+      ...form.value,
+      tagList: tags,
+      sectionId: this.cheatsheet.sectionId,
+      userId: user?.id
+    }
+    console.log(this.cheatsheetId);
+    
+    this.cheatsheetService.updateCheatsheet(data, +this.cheatsheetId).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.error(error);
+      }
+    })
+    console.log(data);
+        
     
   }
 
@@ -55,9 +78,9 @@ export class EditCheatsheetComponent {
   }
   
   loadData() {
-    const cheatsheetId = +this.userId;
+    const cheatsheetId = +this.cheatsheetId;
     
-    this.cheatsheetService.getCheatsheetById(cheatsheetId).subscribe({
+    this.cheatsheetService.getCheatsheetById(+this.cheatsheetId).subscribe({
       next: (response) => {
         this.cheatsheet = response;
 

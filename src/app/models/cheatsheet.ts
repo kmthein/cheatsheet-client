@@ -9,4 +9,5 @@ export class Cheatsheet {
   language: string = '';
   sectionId!: number;
   tag: string = '';
+  user!: any;
 }
