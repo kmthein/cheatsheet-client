@@ -18,13 +18,9 @@ export class AppComponent {
   ngOnInit(): void {
     initFlowbite();
     this.authService.currentUser$.subscribe((user) => {
-      console.log('Current User:', user);
       if (user) {
         this.user = user;
-        // Do something with the user object
       }
-      console.log(user);
-      
     });
   }
 }

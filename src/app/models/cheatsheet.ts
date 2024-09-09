@@ -1,8 +1,11 @@
 export class Cheatsheet {
-    id: number;
-    description: string = "";
-    
-    constructor(id: number, description: string) {
-        this.id = id;
-    }
+  id!: number;
+  name: string = '';
+  description: string = '';
+  color: string = '';
+  layout: string = '';
+  type: string = '';
+  style: string = '';
+  language: string = '';
+  sectionId!: number;
 }

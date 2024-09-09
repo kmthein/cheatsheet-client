@@ -43,6 +43,7 @@ import { authInterceptor } from './core/auth.interceptor';
 import { ToastComponent } from './shared/components/toast/toast.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { AddBlockModalComponent } from './shared/components/add-block-modal/add-block-modal.component';
+import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AddBlockModalComponent } from './shared/components/add-block-modal/add-
     ToastComponent,
     RegisterComponent,
     AddBlockModalComponent,
+    EditCheatsheetComponent,
   ],
   imports: [
     BrowserModule,

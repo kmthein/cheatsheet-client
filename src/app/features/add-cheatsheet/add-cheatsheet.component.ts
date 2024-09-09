@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { CheatsheetService } from '../../services/cheatsheet/cheatsheet.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-cheatsheet',
@@ -6,5 +9,24 @@ import { Component } from '@angular/core';
   styleUrl: './add-cheatsheet.component.css',
 })
 export class AddCheatsheetComponent {
-  modalSize: 'medium-modal' | 'large-modal' | 'extralarge-modal' = 'medium-modal';
+  name: string = '';
+
+  constructor(
+    private cheatsheetService: CheatsheetService,
+    private router: Router
+  ) {}
+
+  onSubmit(form: NgForm) {
+    this.cheatsheetService.addCheatsheet(this.name).subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response.id) {
+          this.router.navigate([`/cheatsheets/edit/${response.id}`]);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
 }

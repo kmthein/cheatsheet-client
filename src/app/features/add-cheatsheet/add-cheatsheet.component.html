@@ -6,7 +6,11 @@
     >
       Add New Cheat Sheet
     </h2>
-    <form class="max-w-2xl bg-[#f5f5f5] px-8 py-4 pt-10">
+    <form
+      (ngSubmit)="onSubmit(csForm)"
+      class="max-w-2xl bg-[#f5f5f5] px-8 py-4 pt-10"
+      #csForm="ngForm"
+    >
       <div class="relative z-0 w-full mb-5 group">
         <div class="mb-6">
           <label
@@ -14,146 +18,28 @@
             class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
             >Cheat Sheet Name</label
           >
-          <input
-            type="text"
-            name="name"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="description"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Description</label
-          >
-          <input
-            type="text"
-            name="description"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="color"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Color</label
-          >
-          <input
-            type="color"
-            name="color"
-            class="w-[70%] px-1 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="style"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Style</label
-          >
-          <input
-            type="text"
-            name="style"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="layout"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Layout</label
-          >
-          <select
-            id="layout"
-            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="1">1 Column</option>
-            <option value="2">2 Columns</option>
-            <option value="3" selected>3 Columns</option>
-            <option value="4">4 Columns</option>
-          </select>
-        </div>
-        <div class="mb-6">
-          <label
-            for="type"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Type</label
-          >
-          <input
-            type="text"
-            name="type"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="language"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Language</label
-          >
-          <input
-            type="text"
-            name="language"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="section"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Section</label
-          >
-          <select
-            id="layout"
-            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option selected>Please select a section</option>
-            <option value="1">Programming</option>
-            <option value="2">Game and Hobbies</option>
-            <option value="4">Education</option>
-          </select>
-        </div>
-        <div class="mb-6">
-          <label
-            for="tag"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Tag</label
-          >
-          <input
-            type="text"
-            name="tag"
-            class="w-[70%] py-1 px-2 border border-[#e6e6e6]"
-          />
-        </div>
-        <div class="my-8 flex">
-          <label
-            for="tag"
-            class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
-            >Block</label
-          >
-          <div *ngIf="modalSize === 'medium-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="medium-modal" data-modal-toggle="medium-modal" type="button">
-            <ng-icon name="heroPlus" />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Add New Block Here</span
-            >
-          </div>
-          <div *ngIf="modalSize === 'large-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="large-modal" data-modal-toggle="large-modal" type="button">
-            <ng-icon name="heroPlus" />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Add New Block Here</span
-            >
-          </div>
-          <div *ngIf="modalSize === 'extralarge-modal'" class="flex items-center gap-1 cursor-pointer" data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal" type="button">
-            <ng-icon name="heroPlus" />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Add New Block Here</span
-            >
+          <div>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="name"
+              #nameInput="ngModel"
+              required
+              class="w-full py-1 px-2 border border-[#e6e6e6]"
+            />
+            <div *ngIf="nameInput.invalid && nameInput.touched">
+              <small *ngIf="nameInput.errors?.['required']"
+                >Name is required</small
+              >
+            </div>
           </div>
         </div>
       </div>
       <div class="flex justify-center">
         <button
           type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          [disabled]="csForm.invalid"
+          class="text-white disabled:bg-slate-400 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Submit
         </button>
@@ -161,4 +47,3 @@
     </form>
   </div>
 </div>
-<app-add-block-modal [modalSize]="modalSize"></app-add-block-modal>
