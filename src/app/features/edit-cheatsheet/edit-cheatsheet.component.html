@@ -72,13 +72,14 @@
           >
           <select
             id="layout"
+            name="layout"
             [(ngModel)]="cheatsheet.layout"
             class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option value="1">1 Column</option>
-            <option value="2">2 Columns</option>
-            <option value="3" selected>3 Columns</option>
-            <option value="4">4 Columns</option>
+            <option [value]="1">1 Column</option>
+            <option [value]="2">2 Columns</option>
+            <option [value]="3">3 Columns</option>
+            <option [value]="4">4 Columns</option>
           </select>
         </div>
         <div class="mb-6">
@@ -114,13 +115,18 @@
             >Section</label
           >
           <select
-            id="layout"
-            (ngModel)="cheatsheet.sectionId"
+            id="section"
+            name="section"
+            (ngModel)="(cheatsheet.sectionId)"
             (change)="onSectionChange($event)"
             class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option disabled>Please select a section</option>
-            <option [selected]="section.id === cheatsheet.sectionId" *ngFor="let section of sections; trackBy: trackBySectionId" [value]="section.id">
+            <option
+              [selected]="section.id === cheatsheet.sectionId"
+              *ngFor="let section of sections; trackBy: trackBySectionId"
+              [value]="section.id"
+            >
               {{ section.name }}
             </option>
           </select>
@@ -145,34 +151,9 @@
             >Block</label
           >
           <div
-            *ngIf="modalSize === 'medium-modal'"
             class="flex items-center gap-1 cursor-pointer"
-            data-modal-target="medium-modal"
-            data-modal-toggle="medium-modal"
-            type="button"
-          >
-            <ng-icon name="heroPlus" />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Add New Block Here</span
-            >
-          </div>
-          <div
-            *ngIf="modalSize === 'large-modal'"
-            class="flex items-center gap-1 cursor-pointer"
-            data-modal-target="large-modal"
-            data-modal-toggle="large-modal"
-            type="button"
-          >
-            <ng-icon name="heroPlus" />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Add New Block Here</span
-            >
-          </div>
-          <div
-            *ngIf="modalSize === 'extralarge-modal'"
-            class="flex items-center gap-1 cursor-pointer"
-            data-modal-target="extralarge-modal"
-            data-modal-toggle="extralarge-modal"
+            data-modal-target="add-block"
+            data-modal-toggle="add-block"
             type="button"
           >
             <ng-icon name="heroPlus" />
@@ -191,6 +172,58 @@
         </button>
       </div>
     </form>
+    <div class="flex justify-between mt-8 flex-wrap gap-4">
+      <table
+        *ngFor="let block of cheatsheet.blocks"
+        [ngStyle]="{
+          width:
+            cheatsheet.layout == '1'
+              ? 'calc(100% - 16px)'
+              : cheatsheet.layout == '2'
+              ? 'calc(50% - 16px)'
+              : cheatsheet.layout == '3'
+              ? 'calc(33.3% - 16px)'
+              : 'calc(25% - 16px)'
+        }"
+      >
+        <div class="flex justify-between items-center">
+          <h4
+            class="font-bold text-lg p-1 mb-2"
+            [ngStyle]="{ color: cheatsheet.color }"
+          >
+            {{ block.title }}
+          </h4>
+          <div
+            data-modal-target="edit-block"
+            data-modal-toggle="edit-block"
+            type="button"
+            class="cursor-pointer"
+          >
+            <ng-icon name="featherEdit" />
+          </div>
+        </div>
+        <div class="tb-block p-1 px-[6px]">
+          <tr
+            *ngFor="let content of block.content; let i = index"
+            [ngStyle]="{
+              'background-color':
+                i % 2 === 0
+                  ? ''
+                  : hexToRgba(
+                      cheatsheet.color == null ? '#000000' : cheatsheet.color,
+                      0.2
+                    )
+            }"
+            class="flex py-2"
+          >
+            <td class="px-2 flex-1" *ngFor="let c of content; let j = index">
+              {{ c }}
+            </td>
+          </tr>
+        </div>
+      </table>
+    </div>
   </div>
 </div>
 <app-add-block-modal [modalSize]="modalSize"></app-add-block-modal>
+<app-edit-block-modal [modalSize]="modalSize"></app-edit-block-modal>

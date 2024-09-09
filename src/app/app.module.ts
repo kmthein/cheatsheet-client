@@ -29,6 +29,8 @@ import {
   ionGameControllerOutline,
   ionPricetagSharp,
 } from '@ng-icons/ionicons';
+import { featherEdit } from '@ng-icons/feather-icons';
+
 import { SectionListComponent } from './features/section-list/section-list.component';
 import { SectionComponent } from './features/section-list/section/section.component';
 import { InnerWrapComponent } from './layouts/inner-wrap/inner-wrap.component';
@@ -44,6 +46,7 @@ import { ToastComponent } from './shared/components/toast/toast.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { AddBlockModalComponent } from './shared/components/add-block-modal/add-block-modal.component';
 import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
+import { EditBlockModalComponent } from './shared/components/edit-block-modal/edit-block-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsh
     RegisterComponent,
     AddBlockModalComponent,
     EditCheatsheetComponent,
+    EditBlockModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,8 @@ import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsh
       ionPricetagSharp,
       ionChevronDownSharp,
       heroPlus,
-      ionAddCircle
+      ionAddCircle,
+      featherEdit,
     }),
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],

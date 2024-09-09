@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { BlockService } from '../../../services/block/block.service';
 
 @Component({
-  selector: 'app-add-block-modal',
-  templateUrl: './add-block-modal.component.html',
-  styleUrls: ['./add-block-modal.component.css'],
+  selector: 'app-edit-block-modal',
+  templateUrl: './edit-block-modal.component.html',
+  styleUrl: './edit-block-modal.component.css',
 })
-export class AddBlockModalComponent {
+export class EditBlockModalComponent {
   @Input() modalSize!: string;
   title: string = '';
   cheatsheetId!: number;
