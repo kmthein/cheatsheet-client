@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlockService } from '../../../services/block/block.service';
 
@@ -11,10 +19,17 @@ export class EditBlockModalComponent implements OnInit, OnChanges {
   @Input() modalSize!: string;
   @Input() blockId: number | null = null;
   @Input() blocks: any;
+  @Input() isModalOpen: boolean = false;
 
   @Output() blockUpdated = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<void>();
+
+  closeEditModal() {
+    this.closeModal.emit();
+  }
 
   title: string = '';
+  note: string = '';
   cheatsheetId!: number;
 
   columnNum: number = 1;
@@ -43,6 +58,7 @@ export class EditBlockModalComponent implements OnInit, OnChanges {
   initializeFormWithBlockContent() {
     // Set title if available
     this.title = this.blocks.title || '';
+    this.note = this.blocks.note || '';
 
     // Pre-populate aryData with existing block content
     if (this.blocks.content && Array.isArray(this.blocks.content)) {
@@ -54,10 +70,13 @@ export class EditBlockModalComponent implements OnInit, OnChanges {
 
       // Update rows and columns
       this.rows = Array.from({ length: this.rowNum }, (_, index) => index);
-      this.columns = Array.from({ length: this.columnNum }, (_, index) => index);
+      this.columns = Array.from(
+        { length: this.columnNum },
+        (_, index) => index
+      );
     }
   }
-  
+
   aryData: string[][] = [['']]; // Initialize with one empty row and column
 
   // Dynamically update the columns array based on the selected column number
@@ -86,7 +105,8 @@ export class EditBlockModalComponent implements OnInit, OnChanges {
   submitBlock() {
     const blocks = [];
     const title = this.title;
-    blocks.push({ id: this.blockId, title: title, content: this.aryData });
+    const note = this.note;
+    blocks.push({ id: this.blockId, title, note, content: this.aryData });
     this.blockService.addNewBlock(blocks, this.cheatsheetId).subscribe({
       next: (response) => {
         console.log(response);

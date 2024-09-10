@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlockService } from '../../../services/block/block.service';
 
@@ -9,7 +9,15 @@ import { BlockService } from '../../../services/block/block.service';
 })
 export class AddBlockModalComponent {
   @Input() modalSize!: string;
+  @Input() addModalOpen: boolean = false;
+  @Output() setAddModal = new EventEmitter();
+  @Output() blockUpdated = new EventEmitter<void>();
+
+  closeModal() {
+    this.setAddModal.emit();
+  }
   title: string = '';
+  note: string = '';
   cheatsheetId!: number;
 
   columnNum: number = 1;
@@ -56,11 +64,14 @@ export class AddBlockModalComponent {
   submitBlock() {
     const blocks = [];
     const title = this.title;
-    blocks.push({ title: title, content: this.aryData });
+    const note = this.note;
+    blocks.push({ title, note, content: this.aryData });
     console.log(blocks);
     this.blockService.addNewBlock(blocks, this.cheatsheetId).subscribe({
       next: (response) => {
         console.log(response);
+        this.blockUpdated.emit();
+        this.aryData = [['']];
       },
       error: (error) => {
         console.error(error);

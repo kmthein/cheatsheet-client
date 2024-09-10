@@ -11,5 +11,5 @@ export class Cheatsheet {
   tag: string = '';
   user!: any;
   blocks: any = [];
-  tagList = [];
+  tagList: any;
 }

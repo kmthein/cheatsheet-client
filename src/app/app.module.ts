@@ -23,11 +23,13 @@ import {
 } from '@ng-icons/heroicons/outline';
 import {
   ionAddCircle,
+  ionBackspace,
   ionCalendarOutline,
   ionChevronDownSharp,
   ionGameController,
   ionGameControllerOutline,
   ionPricetagSharp,
+  ionReturnUpBack,
 } from '@ng-icons/ionicons';
 import { featherEdit } from '@ng-icons/feather-icons';
 
@@ -47,6 +49,7 @@ import { RegisterComponent } from './features/register/register/register.compone
 import { AddBlockModalComponent } from './shared/components/add-block-modal/add-block-modal.component';
 import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
 import { EditBlockModalComponent } from './shared/components/edit-block-modal/edit-block-modal.component';
+import { CheatsheetDetailComponent } from './features/cheatsheet-detail/cheatsheet-detail/cheatsheet-detail.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,7 @@ import { EditBlockModalComponent } from './shared/components/edit-block-modal/ed
     AddBlockModalComponent,
     EditCheatsheetComponent,
     EditBlockModalComponent,
+    CheatsheetDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,7 @@ import { EditBlockModalComponent } from './shared/components/edit-block-modal/ed
       heroPlus,
       ionAddCircle,
       featherEdit,
+      ionReturnUpBack,
     }),
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],

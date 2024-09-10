@@ -7,6 +7,9 @@ import { Section } from '../../models/section';
 import { SectionService } from '../../services/section/section.service';
 import { forkJoin } from 'rxjs';
 import { BlockService } from '../../services/block/block.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-cheatsheet',
@@ -14,11 +17,12 @@ import { BlockService } from '../../services/block/block.service';
   styleUrl: './edit-cheatsheet.component.css',
 })
 export class EditCheatsheetComponent {
+  [x: string]: any;
   modalSize: 'medium-modal' | 'large-modal' | 'extralarge-modal' =
     'medium-modal';
 
   cheatsheetId!: string;
-
+  isModalOpen: boolean = false;
   cheatsheet = {} as Cheatsheet;
   sections: Section[] = [];
   rgbaColor: string = '';
@@ -26,48 +30,65 @@ export class EditCheatsheetComponent {
   isEdit: boolean = false;
   selectedBlockId: number | null = null;
   selectedBlock: any = null;
-  isEditModalOpen: boolean = false;
 
   blocks: any;
-  aryData: any
+  aryData: any;
+  user: User | undefined;
+
+  addModalOpen: boolean = false;
 
   selectBlock(id: number) {
+    console.log(id);
+    this.isModalOpen = true;
+
     this.isEdit = true;
     this.selectedBlockId = id;
     this.getBlockById(id);
   }
 
-  closeEditModal() {
-    this.isEditModalOpen = false; // Close the modal
+  setAddModal(isOpen: boolean) {
+    this.addModalOpen = isOpen;
   }
 
-  getBlockById(id: number):void {
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  getBlockById(id: number): void {
     this.blockService.getBlockById(id).subscribe({
-      next: response => {
+      next: (response) => {
         this.blocks = response;
       },
-      error: error => {
+      error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
+
   constructor(
     private route: ActivatedRoute,
     private cheatsheetService: CheatsheetService,
     private sectionService: SectionService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private blockService: BlockService
+    private blockService: BlockService,
+    private authService: AuthService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
     this.cheatsheetId = this.route.snapshot.paramMap.get('id')!;
     this.loadData();
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.user = user;
+      }
+    });
   }
 
   onBlockUpdated() {
     this.loadData();
-    this.closeEditModal();
+    this.isModalOpen = false;
   }
 
   onSubmit(form: NgForm) {
@@ -93,6 +114,7 @@ export class EditCheatsheetComponent {
       .subscribe({
         next: (response) => {
           this.loadData();
+          this.router.navigate([`/cheatsheets/${this.cheatsheetId}`]);
         },
         error: (error) => {
           console.error(error);
@@ -122,19 +144,31 @@ export class EditCheatsheetComponent {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   loadData() {
     const cheatsheetId = +this.cheatsheetId;
 
     this.cheatsheetService.getCheatsheetById(cheatsheetId).subscribe({
       next: (response) => {
         console.log(response);
-        this.rgbaColor = this.hexToRgba(response.color, 0.2);
+        if (response.color) {
+          this.rgbaColor = this.hexToRgba(response.color, 0.2);
+        }
         this.cheatsheet = response;
+
+        if (this.user?.id != this.cheatsheet?.user?.id) {
+          this.router.navigate([`/cheatsheets/${this.cheatsheetId}`]);
+        }
         const tagAry: any = [];
 
-        response.tagList.map((t: any) => {
-          tagAry.push(t.name);
-        });
+        if (response.tagList) {
+          response.tagList.map((t: any) => {
+            tagAry.push(t.name);
+          });
+        }
 
         this.cheatsheet.tag = tagAry;
         this.cheatsheet.layout = response.layout;

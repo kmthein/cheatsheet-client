@@ -1,1 +1,59 @@
-    <p>cheatsheet works!</p>
+<div class="my-6">
+  <h5 class="text-2xl font-semibold mb-4">All Cheat Sheets</h5>
+</div>
+<div class="flex gap-6">
+  <div class="w-[75%]">
+    <div class="border-b-[3px] border-[#41a0ff] bg-[#EEEEEE] px-3 py-3">
+      <h5 class="text-[#3077be] font-semibold">Latest Cheat Sheets</h5>
+    </div>
+
+    <a
+      routerLink="/cheatsheets/{{ cheatsheet.id }}"
+      *ngFor="let cheatsheet of cheatsheets"
+      [ngStyle]="{
+        'background-color':
+          cheatsheet.color == null ? '#afafaf' : cheatsheet.color
+      }"
+      class="px-3 py-3 my-4 rounded-md flex gap-2"
+    >
+      <img src="assets/Capture2.PNG" class="w-[30%]" />
+      <div
+        class="text-[#ffffff] p-3 w-full mx-1 z-10"
+        [ngStyle]="{
+          'background-color': darkenHexColor(
+            cheatsheet.color == null ? '#afafaf' : cheatsheet.color,
+            0.7
+          )
+        }"
+      >
+        <div class="h-[50%]">
+          <h4 class="font-semibold text-xl mb-2">{{ cheatsheet.name }}</h4>
+          <h6 class="mb-2 font-medium">{{ cheatsheet.type }}</h6>
+          <p class="text-sm mb-2">{{ cheatsheet.description }}</p>
+        </div>
+        <div class="h-[50%]">
+          <p class="text-sm mb-3">{{ cheatsheet.user?.name }}</p>
+          <div class="flex items-center gap-2 mb-3">
+            <ng-icon name="ionCalendarOutline" /><span class="text-sm"
+              >3 Sept 24</span
+            >
+          </div>
+          <div *ngIf="cheatsheet.tagList" class="flex items-center gap-2">
+            <ng-icon name="ionPricetagSharp" />
+            <div
+              class="text-sm flex gap-2"
+              *ngFor="let t of cheatsheet.tagList"
+            >
+              <span>{{ t.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="w-[25%]">
+    <div class="border-b-[3px] border-[#41a0ff] bg-[#EEEEEE] px-3 py-3">
+      <h5 class="text-[#3077be] font-semibold">Top Tags in Programming</h5>
+    </div>
+  </div>
+</div>

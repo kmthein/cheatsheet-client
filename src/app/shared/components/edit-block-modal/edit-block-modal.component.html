@@ -1,12 +1,17 @@
 <form #blockForm="ngForm" (ngSubmit)="submitBlock()">
   <div
+    *ngIf="isModalOpen"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40"
+    (click)="closeEditModal()"
+  ></div>
+  <div
+    *ngIf="isModalOpen"
     id="edit-block"
-    data-modal-backdrop="static"
     tabindex="-1"
-    class="fixed hidden top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
   >
     <div
-      class="relative w-full {{
+      class="relative left-[50%] translate-x-[-50%] w-full {{
         columnNum == 1
           ? 'max-w-xl'
           : columnNum == 2
@@ -28,7 +33,7 @@
           <button
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-hide="edit-block"
+            (click)="closeEditModal()"
           >
             <svg
               class="w-3 h-3"
@@ -85,6 +90,19 @@
               class="w-[75%] py-1 px-2 border border-[#e6e6e6]"
             />
           </div>
+          <div class="mb-6 w-[90%]">
+            <label
+              for="note"
+              class="text-sm text-gray-500 dark:text-gray-400 inline-block min-w-[25%]"
+              >Note (Optional)</label
+            >
+            <input
+              type="text"
+              name="note"
+              [(ngModel)]="note"
+              class="w-[75%] py-1 px-2 border border-[#e6e6e6]"
+            />
+          </div>
           <!-- Dynamic Rows and Columns -->
           <div
             class="flex {{
@@ -136,13 +154,13 @@
         >
           <button
             type="submit"
-            data-modal-hide="edit-block"
+            (click)="closeEditModal()"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5"
           >
             Update Block
           </button>
           <button
-            data-modal-hide="edit-block"
+            (click)="closeEditModal()"
             type="button"
             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200"
           >

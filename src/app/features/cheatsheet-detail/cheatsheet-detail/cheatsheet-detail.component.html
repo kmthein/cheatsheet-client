@@ -1,0 +1,79 @@
+<div class="flex justify-between items-center">
+  <app-breadcrumb></app-breadcrumb>
+  <ng-icon
+    name="ionReturnUpBack"
+    class="text-3xl cursor-pointer"
+    (click)="goBack()"
+    >Back</ng-icon
+  >
+</div>
+<div class="my-4">
+  <div class="flex justify-between items-center">
+    <h5 class="text-2xl font-semibold mb-4 px-3">
+      {{ cheatsheet.name }} by
+      <span
+        class="text-[#41A0FF] font-medium border-dotted border-b border-[#41A0FF]"
+        >{{ cheatsheet.user?.name }}</span
+      >
+    </h5>
+    <div
+      *ngIf="user?.id == cheatsheet?.user?.id"
+      type="button"
+      class="cursor-pointer"
+    >
+      <a
+        routerLink="/cheatsheets/edit/{{ cheatsheet.id }}"
+        class="inline-flex items-center gap-1 text-white disabled:bg-slate-400 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        ><ng-icon name="featherEdit" /> Edit</a
+      >
+    </div>
+  </div>
+  <p class="mb-4 px-3">{{ cheatsheet.description }}</p>
+  <hr />
+  <div class="flex mt-8 flex-wrap gap-4">
+    <table
+      *ngFor="let block of cheatsheet.blocks"
+      [ngStyle]="{
+        width:
+          cheatsheet.layout == '1'
+            ? 'calc(100% - 16px)'
+            : cheatsheet.layout == '2'
+            ? 'calc(50% - 16px)'
+            : cheatsheet.layout == '3'
+            ? 'calc(33.3% - 16px)'
+            : 'calc(25% - 16px)'
+      }"
+    >
+      <div class="flex justify-between items-center">
+        <h4
+          class="font-bold text-lg p-1 mb-2"
+          [ngStyle]="{ color: cheatsheet.color }"
+        >
+          {{ block.title }}
+        </h4>
+      </div>
+      <div class="tb-block p-1 px-[6px]">
+        <tr
+          *ngFor="let content of block.content; let i = index"
+          [ngStyle]="{
+            'background-color':
+              i % 2 === 0
+                ? ''
+                : hexToRgba(
+                    cheatsheet.color == null ? '#000000' : cheatsheet.color,
+                    0.2
+                  )
+          }"
+          class="flex py-2"
+        >
+          <td class="px-2 flex-1" *ngFor="let c of content; let j = index">
+            {{ c }}
+          </td>
+        </tr>
+        <div class="border-t w-full px-1" *ngIf="block.note">
+          <p class="py-2 px-1">{{ block.note }}</p>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>

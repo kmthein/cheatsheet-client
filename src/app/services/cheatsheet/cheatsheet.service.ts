@@ -40,14 +40,18 @@ export class CheatsheetService {
     return this.http.put<any>(`${this.url}/cheatsheets/${id}`, data).pipe(
       tap((response) => {
         console.log(response);
-        
+        this.toastService.setMessage(response.message, 'toast-success');
       }),
       catchError((err) => {
         const { error } = err;
         this.toastService.setMessage(error.message, 'toast-danger');
         return throwError(error);
       })
-    )
+    );
+  }
+
+  getAllCheatsheets(): Observable<any> {
+    return this.http.get<any>(`${this.url}/cheatsheets`);
   }
 
   getCheatsheetById(id: number): Observable<any> {

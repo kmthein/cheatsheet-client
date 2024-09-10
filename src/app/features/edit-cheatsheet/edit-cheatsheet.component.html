@@ -117,7 +117,7 @@
           <select
             id="section"
             name="section"
-            (ngModel)="(cheatsheet.sectionId)"
+            [(ngModel)]="cheatsheet.sectionId"
             (change)="onSectionChange($event)"
             class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
@@ -152,8 +152,7 @@
           >
           <div
             class="flex items-center gap-1 cursor-pointer"
-            data-modal-target="add-block"
-            data-modal-toggle="add-block"
+            (click)="setAddModal(true)"
             type="button"
           >
             <ng-icon name="heroPlus" />
@@ -172,7 +171,7 @@
         </button>
       </div>
     </form>
-    <div class="flex mt-8 flex-wrap gap-4">
+    <div class="flex mt-8 flex-wrap gap-4" *ngIf="cheatsheet.blocks">
       <table
         *ngFor="let block of cheatsheet.blocks"
         [ngStyle]="{
@@ -194,8 +193,6 @@
             {{ block.title }}
           </h4>
           <div
-            data-modal-target="edit-block"
-            data-modal-toggle="edit-block"
             type="button"
             class="cursor-pointer"
             (click)="selectBlock(block.id)"
@@ -221,10 +218,25 @@
               {{ c }}
             </td>
           </tr>
+          <div class="border-t w-full px-1" *ngIf="block.note">
+            <p class="py-2 px-1">{{ block.note }}</p>
+          </div>
         </div>
       </table>
     </div>
   </div>
 </div>
-<app-add-block-modal [modalSize]="modalSize"></app-add-block-modal>
-<app-edit-block-modal [modalSize]="modalSize" [blockId]="selectedBlockId" [blocks]="blocks" (blockUpdated)="onBlockUpdated()"></app-edit-block-modal>
+<app-add-block-modal
+  [modalSize]="modalSize"
+  (setAddModal)="setAddModal(false)"
+  [addModalOpen]="addModalOpen"
+  (blockUpdated)="onBlockUpdated()"
+></app-add-block-modal>
+<app-edit-block-modal
+  [modalSize]="modalSize"
+  [blockId]="selectedBlockId"
+  [blocks]="blocks"
+  (blockUpdated)="onBlockUpdated()"
+  [isModalOpen]="isModalOpen"
+  (closeModal)="closeModal()"
+></app-edit-block-modal>
