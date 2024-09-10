@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheatsheetService } from '../../services/cheatsheet/cheatsheet.service';
 import { Cheatsheet } from '../../models/cheatsheet';
@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Section } from '../../models/section';
 import { SectionService } from '../../services/section/section.service';
 import { forkJoin } from 'rxjs';
+import { BlockService } from '../../services/block/block.service';
 
 @Component({
   selector: 'app-edit-cheatsheet',
@@ -22,17 +23,51 @@ export class EditCheatsheetComponent {
   sections: Section[] = [];
   rgbaColor: string = '';
 
+  isEdit: boolean = false;
+  selectedBlockId: number | null = null;
+  selectedBlock: any = null;
+  isEditModalOpen: boolean = false;
+
+  blocks: any;
+  aryData: any
+
+  selectBlock(id: number) {
+    this.isEdit = true;
+    this.selectedBlockId = id;
+    this.getBlockById(id);
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false; // Close the modal
+  }
+
+  getBlockById(id: number):void {
+    this.blockService.getBlockById(id).subscribe({
+      next: response => {
+        this.blocks = response;
+      },
+      error: error => {
+        console.log(error);
+      }
+    })
+  }
   constructor(
     private route: ActivatedRoute,
     private cheatsheetService: CheatsheetService,
     private sectionService: SectionService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private blockService: BlockService
   ) {}
 
   ngOnInit(): void {
     this.cheatsheetId = this.route.snapshot.paramMap.get('id')!;
     this.loadData();
+  }
+
+  onBlockUpdated() {
+    this.loadData();
+    this.closeEditModal();
   }
 
   onSubmit(form: NgForm) {
@@ -57,7 +92,6 @@ export class EditCheatsheetComponent {
       .updateCheatsheet(data, +this.cheatsheetId)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.loadData();
         },
         error: (error) => {

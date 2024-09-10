@@ -25,7 +25,6 @@ export class AddBlockModalComponent {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
     this.cheatsheetId = +id!;
   }
 

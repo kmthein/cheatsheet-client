@@ -11,6 +11,10 @@ export class BlockService {
 
   constructor(private http: HttpClient, private toastService: ToastService) {}
 
+  getBlockById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/blocks/${id}`);
+  }
+
   addNewBlock(blocks: any, id: number): Observable<any> {
     const data = {
       id,

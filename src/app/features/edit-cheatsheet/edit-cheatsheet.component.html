@@ -172,7 +172,7 @@
         </button>
       </div>
     </form>
-    <div class="flex justify-between mt-8 flex-wrap gap-4">
+    <div class="flex mt-8 flex-wrap gap-4">
       <table
         *ngFor="let block of cheatsheet.blocks"
         [ngStyle]="{
@@ -198,6 +198,7 @@
             data-modal-toggle="edit-block"
             type="button"
             class="cursor-pointer"
+            (click)="selectBlock(block.id)"
           >
             <ng-icon name="featherEdit" />
           </div>
@@ -226,4 +227,4 @@
   </div>
 </div>
 <app-add-block-modal [modalSize]="modalSize"></app-add-block-modal>
-<app-edit-block-modal [modalSize]="modalSize"></app-edit-block-modal>
+<app-edit-block-modal [modalSize]="modalSize" [blockId]="selectedBlockId" [blocks]="blocks" (blockUpdated)="onBlockUpdated()"></app-edit-block-modal>
