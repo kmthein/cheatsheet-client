@@ -93,13 +93,21 @@ export class EditCheatsheetComponent {
 
   onSubmit(form: NgForm) {
     let tags;
+    console.log(form.value.tag);
+
     if (form.value.tag) {
       if (form.value.tag.includes(' ')) {
         tags = form.value.tag.replaceAll(' ', '').split(',');
+      } else if (form.value.tag.includes(',')) {
+        tags = form.value.tag.substring.split(',');
+      } else if (
+        !form.value.tag.includes(' ') &&
+        !form.value.tag.includes(',')
+      ) {
+        tags = [];
+        tags.push(form.value.tag);
       } else {
-        if (form.value.tag.includes(',')) {
-          tags = form.value.tag.split(',');
-        }
+        tags = form.value.tag;
       }
     }
     const { user } = this.cheatsheet;

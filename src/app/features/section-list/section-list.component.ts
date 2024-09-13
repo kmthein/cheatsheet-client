@@ -21,7 +21,12 @@ export class SectionListComponent {
   getSections(): void {
     this.sectionService.getAllSections().subscribe(
       (data) => {
-        this.sections = data;
+        data.map((d: any) => {
+          if (d.parent == null) {
+            this.sections.push(d);
+          }
+        });
+        console.log(this.sections);
       },
       (error) => {
         console.log(error);
