@@ -4,6 +4,9 @@ import { Cheatsheet } from '../../models/cheatsheet';
 import { ActivatedRoute } from '@angular/router';
 import { Section } from '../../models/section';
 import { SectionService } from '../../services/section/section.service';
+import { switchMap } from 'rxjs';
+import { TagService } from '../../services/tag/tag.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cheatsheet',
@@ -12,24 +15,52 @@ import { SectionService } from '../../services/section/section.service';
 })
 export class CheatsheetComponent {
   sections: Section[] = [];
+  tags: any[] = [];
+  currentSection: string = '';
+  currentTag: string = '';
 
   constructor(
     private cheatsheetService: CheatsheetService,
     private sectionService: SectionService,
-    private route: ActivatedRoute
+    private tagService: TagService,
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   cheatsheets: Cheatsheet[] = [];
 
   ngOnInit() {
     this.getSections();
-    const sectionName = this.route.snapshot.paramMap.get('name');
-    if (!sectionName) {
-      this.getAllCheatsheets();
-    } else if (sectionName) {
-      this.getCheatsheetsBySection(sectionName);
-    }
-    console.log(sectionName);
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const sectionName = params.get('sectionName');
+          const tagName = params.get('tagName');
+          if (!sectionName && !tagName) {
+            return this.cheatsheetService.getAllCheatsheets();
+          } else if (sectionName) {
+            this.currentSection = sectionName;
+            this.getTagsBySectionName(sectionName);
+            return this.cheatsheetService.getCheatsheetsBySection(sectionName);
+          } else {
+            this.currentTag = tagName!;
+            return this.cheatsheetService.getCheatsheetByTag(tagName!);
+          }
+        })
+      )
+      .subscribe(
+        (response) => {
+          this.cheatsheets = response;
+          console.log(this.cheatsheets);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   getSections(): void {
@@ -48,6 +79,17 @@ export class CheatsheetComponent {
     );
   }
 
+  getTagsBySectionName(sectionName: string): void {
+    this.tagService.getTagsBySection(sectionName).subscribe({
+      next: (response) => {
+        this.tags = response;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
   getAllCheatsheets() {
     this.cheatsheetService.getAllCheatsheets().subscribe({
       next: (response) => {
@@ -62,6 +104,18 @@ export class CheatsheetComponent {
 
   getCheatsheetsBySection(name: string) {
     this.cheatsheetService.getCheatsheetsBySection(name).subscribe({
+      next: (response) => {
+        this.cheatsheets = response;
+        console.log(this.cheatsheets);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getCheatsheetsByTag(name: string) {
+    this.cheatsheetService.getCheatsheetByTag(name).subscribe({
       next: (response) => {
         this.cheatsheets = response;
         console.log(this.cheatsheets);

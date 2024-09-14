@@ -20,7 +20,11 @@ const routes: Routes = [
       { path: 'cheatsheets', component: CheatsheetComponent },
       { path: 'cheatsheets/:id', component: CheatsheetDetailComponent },
       {
-        path: 'cheatsheets/section/:name',
+        path: 'cheatsheets/section/:sectionName',
+        component: CheatsheetComponent,
+      },
+      {
+        path: 'cheatsheets/tag/:tagName',
         component: CheatsheetComponent,
       },
       {
