@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CheatsheetService } from '../../services/cheatsheet/cheatsheet.service';
 import { Cheatsheet } from '../../models/cheatsheet';
+import { ActivatedRoute } from '@angular/router';
+import { Section } from '../../models/section';
+import { SectionService } from '../../services/section/section.service';
 
 @Component({
   selector: 'app-cheatsheet',
@@ -8,16 +11,57 @@ import { Cheatsheet } from '../../models/cheatsheet';
   styleUrl: './cheatsheet.component.css',
 })
 export class CheatsheetComponent {
-  constructor(private cheatsheetService: CheatsheetService) {}
+  sections: Section[] = [];
+
+  constructor(
+    private cheatsheetService: CheatsheetService,
+    private sectionService: SectionService,
+    private route: ActivatedRoute
+  ) {}
 
   cheatsheets: Cheatsheet[] = [];
 
   ngOnInit() {
-    this.getAllCheatsheets();
+    this.getSections();
+    const sectionName = this.route.snapshot.paramMap.get('name');
+    if (!sectionName) {
+      this.getAllCheatsheets();
+    } else if (sectionName) {
+      this.getCheatsheetsBySection(sectionName);
+    }
+    console.log(sectionName);
+  }
+
+  getSections(): void {
+    this.sectionService.getAllSections().subscribe(
+      (data) => {
+        data.map((d: any) => {
+          if (d.parent == null) {
+            this.sections.push(d);
+          }
+        });
+        console.log(this.sections);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getAllCheatsheets() {
     this.cheatsheetService.getAllCheatsheets().subscribe({
+      next: (response) => {
+        this.cheatsheets = response;
+        console.log(this.cheatsheets);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getCheatsheetsBySection(name: string) {
+    this.cheatsheetService.getCheatsheetsBySection(name).subscribe({
       next: (response) => {
         this.cheatsheets = response;
         console.log(this.cheatsheets);

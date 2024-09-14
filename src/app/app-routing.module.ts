@@ -20,6 +20,10 @@ const routes: Routes = [
       { path: 'cheatsheets', component: CheatsheetComponent },
       { path: 'cheatsheets/:id', component: CheatsheetDetailComponent },
       {
+        path: 'cheatsheets/section/:name',
+        component: CheatsheetComponent,
+      },
+      {
         path: 'cheatsheets/edit/:id',
         component: EditCheatsheetComponent,
         canActivate: [AuthGuard],

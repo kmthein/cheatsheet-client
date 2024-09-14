@@ -54,6 +54,10 @@ export class CheatsheetService {
     return this.http.get<any>(`${this.url}/cheatsheets`);
   }
 
+  getCheatsheetsBySection(name: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/cheatsheets/section/${name}`);
+  }
+
   getCheatsheetById(id: number): Observable<any> {
     return this.http.get<any>(`${this.url}/cheatsheets/${id}`);
   }

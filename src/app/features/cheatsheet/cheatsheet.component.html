@@ -53,7 +53,19 @@
   </div>
   <div class="w-[25%]">
     <div class="border-b-[3px] border-[#41a0ff] bg-[#EEEEEE] px-3 py-3">
-      <h5 class="text-[#3077be] font-semibold">Top Tags in Programming</h5>
+      <h5 class="text-[#3077be] font-semibold">Top Sections Name</h5>
+    </div>
+    <div class="px-3">
+      <ul>
+        <a
+          *ngFor="let section of sections"
+          routerLink="/cheatsheets/section/{{ section.name }}"
+        >
+          <li class="my-2">
+            {{ section.name }}
+          </li>
+        </a>
+      </ul>
     </div>
   </div>
 </div>
