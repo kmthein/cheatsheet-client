@@ -18,23 +18,32 @@ export class BlockService {
   addNewBlock(blocks: any, id: number): Observable<any> {
     const data = {
       id,
-      blocks
-    }
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http
-      .post<any>(`${this.url}/blocks`, data, { headers })
-      .pipe(
-        tap((response) => {
-          console.log(response);
-          this.toastService.setMessage(response.message, 'toast-success');
-        }),
-        catchError((err) => {
-          const { error } = err;
-          this.toastService.setMessage(error.message, 'toast-danger');
-          return throwError(error);
-        })
-      );
+      blocks,
+    };
+    return this.http.post<any>(`${this.url}/blocks`, data).pipe(
+      tap((response) => {
+        console.log(response);
+        this.toastService.setMessage(response.message, 'toast-success');
+      }),
+      catchError((err) => {
+        const { error } = err;
+        this.toastService.setMessage(error.message, 'toast-danger');
+        return throwError(error);
+      })
+    );
+  }
+
+  addImgBlock(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.url}/blocks/image`, formData).pipe(
+      tap((response) => {
+        console.log(response);
+        this.toastService.setMessage(response.message, 'toast-success');
+      }),
+      catchError((err) => {
+        const { error } = err;
+        this.toastService.setMessage(error.message, 'toast-danger');
+        return throwError(error);
+      })
+    );
   }
 }

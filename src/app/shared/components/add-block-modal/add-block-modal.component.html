@@ -1,4 +1,8 @@
-<form #blockForm="ngForm" (ngSubmit)="submitBlock()">
+<form
+  #blockForm="ngForm"
+  (ngSubmit)="submitBlock()"
+  enctype="multipart/form-data"
+>
   <div
     *ngIf="addModalOpen"
     class="fixed inset-0 bg-black bg-opacity-50 z-40"
@@ -147,6 +151,7 @@
               class="w-[75%] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
               id="file_input"
               type="file"
+              (change)="onFileSelected($event)"
             />
           </div>
         </div>

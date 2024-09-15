@@ -21,6 +21,7 @@ export class EditCheatsheetComponent {
   modalSize: 'medium-modal' | 'large-modal' | 'extralarge-modal' =
     'medium-modal';
 
+  baseUrl: string = 'http://localhost:8080/';
   cheatsheetId!: string;
   isModalOpen: boolean = false;
   cheatsheet = {} as Cheatsheet;
@@ -92,10 +93,11 @@ export class EditCheatsheetComponent {
   }
 
   onSubmit(form: NgForm) {
-    let tags;
+    let tags: any;
     console.log(form.value.tag);
+    console.log(form.value.tag.length);
 
-    if (form.value.tag) {
+    if (form.value.tag.length > 0) {
       if (form.value.tag.includes(' ')) {
         tags = form.value.tag.replaceAll(' ', '').split(',');
       } else if (form.value.tag.includes(',')) {
@@ -105,11 +107,18 @@ export class EditCheatsheetComponent {
         !form.value.tag.includes(',')
       ) {
         tags = [];
-        tags.push(form.value.tag);
-      } else {
-        tags = form.value.tag;
+        if (Array.isArray(form.value.tag)) {
+          form.value.tag.map((t: any) => tags.push(t));
+        } else {
+          tags.push(form.value.tag);
+        }
+        console.log(tags);
       }
+    } else {
+      tags = [];
     }
+    console.log(form.value.tag.length);
+
     const { user } = this.cheatsheet;
     const data = {
       ...form.value,

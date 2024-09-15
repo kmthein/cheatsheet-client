@@ -19,6 +19,11 @@ export class AddBlockModalComponent {
   title: string = '';
   note: string = '';
   cheatsheetId!: number;
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0]; // Get the selected file
+  }
 
   columnNum: number = 1;
   columns: number[] = [0];
@@ -62,20 +67,40 @@ export class AddBlockModalComponent {
   }
 
   submitBlock() {
-    const blocks = [];
+    let blocks = [];
     const title = this.title;
     const note = this.note;
-    blocks.push({ title, note, content: this.aryData });
-    console.log(blocks);
-    this.blockService.addNewBlock(blocks, this.cheatsheetId).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.blockUpdated.emit();
-        this.aryData = [['']];
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+    if (this.columnNum) {
+      blocks.push({ title, note, content: this.aryData });
+      this.blockService.addNewBlock(blocks, this.cheatsheetId).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.blockUpdated.emit();
+          this.aryData = [['']];
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    } else {
+      console.log(this.selectedFile);
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('note', note);
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
+      formData.append('id', this.cheatsheetId.toString());
+      this.blockService.addImgBlock(formData).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.blockUpdated.emit();
+          this.aryData = [['']];
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    }
   }
 }

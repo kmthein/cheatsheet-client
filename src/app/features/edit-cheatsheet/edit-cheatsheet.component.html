@@ -74,7 +74,7 @@
             id="layout"
             name="layout"
             [(ngModel)]="cheatsheet.layout"
-            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option [value]="1">1 Column</option>
             <option [value]="2">2 Columns</option>
@@ -119,7 +119,7 @@
             name="section"
             [(ngModel)]="cheatsheet.sectionId"
             (change)="onSectionChange($event)"
-            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-[#e6e6e6] text-gray-900 focus:ring-blue-500 focus:border-blue-500 w-[70%] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option disabled>Please select a section</option>
             <option
@@ -218,6 +218,9 @@
               {{ c }}
             </td>
           </tr>
+          <div *ngIf="block.imgUrl">
+            <img [src]="baseUrl + block.imgUrl" alt="{{ block.title }}" />
+          </div>
           <div class="border-t w-full px-1" *ngIf="block.note">
             <p class="py-2 px-1">{{ block.note }}</p>
           </div>
