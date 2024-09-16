@@ -50,6 +50,7 @@ import { AddBlockModalComponent } from './shared/components/add-block-modal/add-
 import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
 import { EditBlockModalComponent } from './shared/components/edit-block-modal/edit-block-modal.component';
 import { CheatsheetDetailComponent } from './features/cheatsheet-detail/cheatsheet-detail/cheatsheet-detail.component';
+import { ProfileComponent } from './features/profile/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { CheatsheetDetailComponent } from './features/cheatsheet-detail/cheatshe
     EditCheatsheetComponent,
     EditBlockModalComponent,
     CheatsheetDetailComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

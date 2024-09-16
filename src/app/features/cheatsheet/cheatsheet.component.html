@@ -16,7 +16,7 @@
     <div class="border-b-[3px] border-[#41a0ff] bg-[#EEEEEE] px-3 py-3">
       <h5 class="text-[#3077be] font-semibold">Latest Cheat Sheets</h5>
     </div>
-
+    <p *ngIf="cheatsheets.length == 0" class="mt-4">No Cheat Sheet Found.</p>
     <a
       routerLink="/cheatsheets/{{ cheatsheet.id }}"
       *ngFor="let cheatsheet of cheatsheets"

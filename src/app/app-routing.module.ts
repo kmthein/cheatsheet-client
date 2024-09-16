@@ -10,6 +10,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { RegisterComponent } from './features/register/register/register.component';
 import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
 import { CheatsheetDetailComponent } from './features/cheatsheet-detail/cheatsheet-detail/cheatsheet-detail.component';
+import { ProfileComponent } from './features/profile/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,9 @@ const routes: Routes = [
         component: AddCheatsheetComponent,
         canActivate: [AuthGuard],
       },
-
+      {
+        path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]
+      },
       { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
       {
         path: 'register',

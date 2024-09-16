@@ -22,6 +22,7 @@ export class CheatsheetDetailComponent {
 
   cheatsheetId!: number;
   cheatsheet = {} as Cheatsheet;
+  baseUrl: string = 'http://localhost:8080/';
 
   user: User | undefined;
 
