@@ -11,6 +11,7 @@ import { RegisterComponent } from './features/register/register/register.compone
 import { EditCheatsheetComponent } from './features/edit-cheatsheet/edit-cheatsheet.component';
 import { CheatsheetDetailComponent } from './features/cheatsheet-detail/cheatsheet-detail/cheatsheet-detail.component';
 import { ProfileComponent } from './features/profile/profile/profile.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,14 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: "admin",
+    component: AdminLayoutComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'cheatsheets', component: CheatsheetComponent },
+    ]
+  }
 ];
 
 @NgModule({
