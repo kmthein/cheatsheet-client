@@ -43,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddCheatsheetComponent } from './features/add-cheatsheet/add-cheatsheet.component';
 import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { LoginComponent } from './features/login/login.component';
-import { authInterceptor } from './core/auth.interceptor';
+import { authInterceptor } from './core/auth.interceptor';  
 import { ToastComponent } from './shared/components/toast/toast.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { AddBlockModalComponent } from './shared/components/add-block-modal/add-block-modal.component';

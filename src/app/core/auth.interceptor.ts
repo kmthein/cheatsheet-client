@@ -9,6 +9,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Get the token from AuthService
   const token = authService.getToken();
+  console.log(token);
 
   // Function to check if the token is expired
   const checkTokenExpiration = (token: string): boolean => {
@@ -28,9 +29,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       // Handle token expiration (e.g., redirect to login, show alert)
       authService.logout();  // Optionally clear the token and log out the user
       alert('Your session has expired. Please log in again.');
-      // Add any logic to redirect the user to the login page
-      // Example: inject(Router).navigate(['/login']);
-      return next(req);  // Continue without token or stop here based on your logic
+      // Optionally, redirect to login page:
+      // inject(Router).navigate(['/login']);
+      return next(req); 
     } else {
       // Token is valid, clone the request and add the Authorization header
       const clonedRequest = req.clone({
